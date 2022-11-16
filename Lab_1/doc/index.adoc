@@ -1,0 +1,214 @@
+= Отчет по лабораторной работе 1
+:listing-caption: Листинг
+:source-highlighter: coderay
+
+Студент: Костюченко Игорь
+
+Группа: ПИМ-22
+
+== 1. Постановка задачи
+
+В процессе выполнения лабораторной работы необходимо выполнить следующие задачи:
+
+. Создать исполняемый java класс, который выводит текстовую строку на экран
+. Разработать два класса. Первый класс вызывает 2 метода из второго класса (статический и нестатический)
+. Создать jar-файл, хранящий элементы из предыдущего задания
+
+
+== 2. Разработка задачи
+
+=== 2.1 Структура проекта
+
+Проект разделен на следующие директории:
+
+docs::
+Данная документация
+
+1::
+Код задачи 1. Исполняемый java-класс, выводящий текстовую строку на экран.
+
+2::
+
+2/src:::
+Исходный код задачи 2. 2 java класса. Класс main.java вызывает 2 метода из класса
+HelloWorld.java (статический и нестатический)
+
+2/classes:::
+Скомпилированные классы задачи 2
+
+3::
+Содержит manifest.mf и сгенерированный jar-файл
+
+== 3. Информация о реализации
+
+Сначала были созданы необходимые директории.
+
+.Создание директорий
+----
+mkdir 1.1
+mkdir -p 1.2/src/mypackage
+mkdir 1.2/classes
+mkdir 1.3
+mkdir -p doc/images
+----
+
+=== 3.1 Задание 1
+
+Для выполнения первого задания был создан исполняемый класс HelloWorld.
+
+.Листинг класса HelloWorld
+
+[source,java]
+----
+public class HelloWorld {
+
+	public static void main(String args[]) {
+	
+		System.out.println("Hello World!");
+	}
+
+}
+----
+
+Для компиляции файла в командной строке использовалась команда javac
+
+.Команда javac
+----
+javac HelloWorld.java
+----
+
+Для запуска файла в командной строке использовалась команда java.
+
+.Команда java
+----
+java HelloWorld
+----
+
+Результат работы скомпилированного файла
+
+.Результат работы
+----
+Hello World!
+----
+
+=== 3.2 Задание 2
+
+Для выполнени задания 2, класс HelloWorld был модифицирован следующим образзом.
+
+.Класс HelloWorld
+[source,java]
+----
+package mypackage;
+
+import mypackage.Mood;
+
+public class HelloWorld {
+
+	public static void main(String args[]) {
+	
+		Mood mood = new Mood();
+		mood.Happily("I`m");
+		mood.Sadly("You are");
+	}
+
+}
+----
+
+А так же был создан исполняемый класс Mood.
+
+.Класс main
+[source,java]
+----
+package mypackage;
+
+public class Mood {
+
+	public static void Happily(String face) {
+		System.out.println(face +"))");
+	}
+	
+	public void Sadly(String face) {
+		System.out.println(face+ "((");
+	} 
+
+}
+----
+
+Для компиляции класса использовались следующие команды:
+
+.Компиляция классов HelloWorld и Mood
+----
+javac -classpath classes/ -d classes/ src/mypackage/HelloWorld.java
+javac -classpath classes/ -d classes/ src/mypackage/Mood.java
+----
+
+Затем файл HelloWorld был запущен командой java.
+
+.Запуск класса main
+----
+java -classpath classes mypackage.HelloWorld
+----
+
+И были получены следующие результаты работы.
+
+.Результаты работы класса main
+----
+I`m ))
+You are ((
+----
+
+=== 3.3 Задание 3
+
+Для выполнения третьего задания был создан файл manifest.mf, в котором указан
+главные исполняемый класс main
+
+.Листинг manifest.mf
+[source,java]
+----
+Manifest-Version: 1.0
+Created-By: 1.6.0_19 (Sun Microsystems Inc.)
+Main-Class: mypackage.HelloWorld
+----
+
+После этого была выполнена команда по сборке архива jar и запуск jar-файла
+
+.Команда по сборке архива
+----
+jar cvmf manifest.mf HelloWorld.jar 
+----
+
+.Запуск jar-файла
+----
+java -jar helloWorld.jar
+----
+
+В результате выполнения выводится следующее:
+
+.Результат выполнения
+----
+I`m ))
+You are ((
+----
+
+== 4. Результаты выполнения
+
+В результате выполнения первого задания был получен класс HelloWorld.
+При запуске выводится строка:
+
+image::screenshots/1.png[]
+
+В результате выполнения второго задания были получены классы main и HelloWorld.
+При запуске main выводятся строки:
+
+image::screenshots/2.png[]
+
+В результате выполнения третьего задания был получен jar-файл main.jar.
+При запуске jar-файла выводятся строки:
+
+image::screenshots/3.png[]
+
+== 5. Вывод
+
+В результате выполнения лабораторной работы получены навыки по компиляции классов,
+запуску проектов, созданию jar-файлов с помощью командной строки.
+
