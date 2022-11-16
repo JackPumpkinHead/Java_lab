@@ -116,7 +116,7 @@ public class HelloWorld {
 
 А так же был создан исполняемый класс Mood.
 
-.Класс main
+.Класс Mood
 [source,java]
 ----
 package mypackage;
